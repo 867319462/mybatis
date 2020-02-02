@@ -7,23 +7,23 @@
 <mapper namespace="com.mapper.UserMapper">
 
     <!--id 方法名   resultType 返回值，需要写全限定名-->
-    <select id="selectUser" resultType="com.pojo.User">
+    <select id="selectUser" resultType="user">
         SELECT * FROM user;
     </select>
 
-    <select id="getUserById" parameterType="int" resultType="com.pojo.User">
+    <select id="getUserById" parameterType="int" resultType="user">
         SELECT * FROM user WHERE id=#{id}
     </select>
 
-    <select id="getUserByName" parameterType="string" resultType="com.pojo.User">
+    <select id="getUserByName" parameterType="string" resultType="user">
         select * from user where name like #{name};
     </select>
 
-    <insert id="addUser" parameterType="com.pojo.User">
+    <insert id="addUser" parameterType="user">
         INSERT INTO user(name, age, address) VALUE (#{name},#{age},#{address});
     </insert>
 
-    <update id="updateUserAgeById" parameterType="com.pojo.User">
+    <update id="updateUserAgeById" parameterType="user">
         update user set  age=#{age}  where id=#{id} ;
     </update>
 
