@@ -1,0 +1,3 @@
+# Project exclude paths
+/mybatis-01-CRUD/target/
+/mybatis-02-properties/target/
