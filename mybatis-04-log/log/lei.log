@@ -1,0 +1,3 @@
+[INFO][20-02-03][com.mapper.UserMapperTest]info:进入方法
+[DEBUG][20-02-03][com.mapper.UserMapperTest]debug:进入方法
+[ERROR][20-02-03][com.mapper.UserMapperTest]error:进入方法
