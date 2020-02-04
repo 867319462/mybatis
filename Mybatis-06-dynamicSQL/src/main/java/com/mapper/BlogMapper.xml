@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.BlogMapper">
+    <!--SQL片段-->
+    <sql id="if-title-author">
+        <if test="author != null">
+            author = #{author}
+        </if>
+        <if test="title != null">
+            and title like #{title}
+        </if>
+    </sql>
+
+    <!--where 会自动删除多余的and    include引用SQL片段-->
+    <select id="queryBlogByIf" resultType="Blog" parameterType="map">
+        select * from blog
+        <where>
+            <include refid="if-title-author"/>
+        </where>
+    </select>
+
+    <!--choose 类似于java的switch语句，会选择性执行一条-->
+    <select id="queryBlogByChoose" resultType="Blog" parameterType="map">
+        select * from blog
+        <where>
+            <choose>
+                <when test="title != null">
+                    title = #{title}
+                </when>
+                <when test="author != null">
+                    author = #{author}
+                </when>
+                <otherwise>
+                    views = #{views}
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+
+    <!--set 会删除多余的"，"-->
+    <update id="updateBlogBySet" parameterType="map">
+        update blog
+        <set>
+            <include refid="if-title-author"/>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="queryBlogByForEach" resultType="com.pojo.Blog">
+        select * from blog
+        <where>
+            <foreach collection="ids" item="id" open="and (" close=")" separator="or">
+                id = #{id}
+            </foreach>
+        </where>
+    </select>
+</mapper>
