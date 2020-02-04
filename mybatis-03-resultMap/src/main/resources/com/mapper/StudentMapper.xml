@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.StudentMapper">
+    <select id="selectStudent" resultType="Student">
+        select * from student;
+    </select>
+
+    <!--子查询-->
+    <resultMap id="StudentAndTeacher" type="Student">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <!--复杂的属性，我们需要单独处理，对象：association  集合：collection-->
+        <!--property 遍历名；column 数据库字段名；javaType 类名；select 查询id-->
+        <association property="teacher" column="teacherId" javaType="Teacher" select="getTeacher"/>
+    </resultMap>
+
+    <select id="getStudentAndTeacher" resultMap="StudentAndTeacher">
+        select * from student;
+    </select>
+
+    <select id="getTeacher" resultType="Teacher">
+        select * from teacher where id=#{id};
+    </select>
+
+
+    <!--关联查询-->
+    <select id="getStudentAndTeacher2" resultMap="StudentAndTeacher2">
+        select s.id sid,s.NAME sname ,t.NAME tname
+        from student s
+        left join teacher t on s.teacherId = t.id
+    </select>
+
+    <resultMap id="StudentAndTeacher2" type="Student">
+        <result property="id" column="sid"/>
+        <result property="name" column="sname"/>
+        <association property="teacher" javaType="Teacher">
+            <result property="name" column="tname" />
+        </association>
+    </resultMap>
+
+</mapper>
