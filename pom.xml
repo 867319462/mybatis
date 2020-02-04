@@ -14,6 +14,8 @@
         <module>mybatis-03-resultMap</module>
         <module>mybatis-04-log</module>
         <module>mybatis-05-annotation</module>
+        <module>mybatis-06-dynamicSQL</module>
+        <module>mybatis-07-cache</module>
     </modules>
 
     <dependencies>
